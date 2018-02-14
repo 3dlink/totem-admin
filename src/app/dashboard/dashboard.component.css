@@ -1,0 +1,31 @@
+.alert-totem{
+  text-align: center;
+  padding: 15px 0px;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.list-group{
+  padding: 20px;
+}
+
+.cronometro{
+  font-size: 7rem;
+  text-align: center;
+  margin: 60px 0;
+}
+
+.controls{
+  padding-top: 20px;
+}
+
+.controls .card-body-icon{
+  top: -27px;
+  right: 10px;
+  transform: rotate(0deg);
+}
+
+.bottons{
+  cursor: pointer;
+}
