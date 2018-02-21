@@ -5,13 +5,13 @@
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Correo electrónico</label>
-            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="">
+            <input class="form-control" id="userEmail" type="email" aria-describedby="emailHelp" [(ngModel)]="email" name="email" placeholder="">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Contraseña</label>
-            <input class="form-control" id="exampleInputPassword1" type="password" placeholder="">
+            <input class="form-control" id="userPass" type="password" placeholder="" ([ngModel])="user.pass">
           </div>
-          <a class="btn btn-primary btn-block" [routerLink]="['/dashboard']">Iniciar Sesión</a>
+          <button type="button" clbuttonss="btn btn-primary btn-block" (click)="agentLogIn()">Iniciar Sesión</button>
         </form>
         <div class="text-center">
           <!-- <a class="d-block small mt-3" href="register.html">Register an Account</a> -->

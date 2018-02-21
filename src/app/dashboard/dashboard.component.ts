@@ -7,50 +7,67 @@ import { TotemSocketService } from './../totem-socket.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  agents:any;
+  clients:any;
+  client:any={
+    crup:'No informado',
+    type:'Normal / Lenguaje de señas / Dialecto'
+  };
+  socketID:string;
   msg:string;
   alerta=true;
   constructor(public sails:TotemSocketService, private ref:ChangeDetectorRef) {
-    this.agents={
-      'A':0,
-      'B':0,
-      'C':0
-    };
+    this.clients=[];
   }
   ngOnInit() {
     this.sails.conectToTotem()
     .subscribe(data=>{
       console.log(data.verb);
-      if(data.verb=="joined"){
-        this.agents=data.agents
-        this.agentsInit(data.agents)
-      }else if(data.verb=="agent_logeed"){
-        this.agents[data.type]++;
-      }else if(data.verb=="agent_logout"){
-        this.agents[data.type]--;
-      }else if(data.verb=="alert"){
-        this.shotAlert(data);
+      if(data.verb=="subscribed"){
+        this.clients=data.totems
+        console.log(this.clients);
+        this.socketID=data.socketID
+        //this.sails.updatesocket({socketID:data.socketID,email:localStorage.getItem('email')})
+      }else if(data.verb=="totem_call"){
+        this.clients.push(data.totem);
+      }else if(data.verb=="totem_take"){
+        for(let x in this.clients){
+          if(this.clients[x].id==data.totem.id){
+            this.clients.splice(x, 1);
+          }
+        }
+      }else if(data.verb=="totem_logout"){
+        console.log(data.totem);
+        for(let x in this.clients){
+          if(this.clients[x].id==data.totem.id){
+            this.clients.splice(x, 1);
+          }
+        }
       }
       this.ref.detectChanges();
     })
   }
-  agentsInit(agents){
-    this.agents=agents;
+  conectToSystem(){
+    this.sails.userOnline(this.socketID);
   }
-  shotAlert(data){
-    if(this.alerta){
-      //console.log(data)
-      alert(data.msg);
-    }else{
-      this.alerta=true;
+  agentLogOut(){
+    this.sails.agentLogOut(localStorage.getItem('email'));
+  }
+  empezar(){
+    let client= this.clients[0];
+    this.clients.splice(0,1);
+    if(client.curp.length>0){
+      this.client.crup=client.curp
     }
+    if(client.type==1){
+      this.client.type='Normal'
+    }else if((client.type==2)){
+      this.client.type='Lenguaje de señas'
+    }else if(client.type==3){
+      this.client.type='Dialecto'
+    }
+    //socketID
+    this.sails.totemTake(client.socketID);
   }
-  getmsg(){
-    this.sails.sendMsg();
-  }
-  sendMensaje(msg){
-    this.alerta=false;
-    this.sails.sendMensaje(msg);
-  }
+ 
 
 }

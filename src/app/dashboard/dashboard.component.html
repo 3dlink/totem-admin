@@ -14,7 +14,7 @@
             <div class="card-body-icon">
               <i class="fa fa-fw fa-list"></i>
             </div>
-            <div class="mr-5">4 Personas en espera</div>
+            <div class="mr-5">{{clients.length}} Personas en espera</div>
           </div>
         </div>
       </div>
@@ -22,9 +22,9 @@
         <div class="card-header">
           <i class="fa fa-bell-o"></i> Atendiendo a...</div>
         <div class="list-group list-group-flush small">
-            <p><b>CURP:</b> No informado</p>
+            <p><b>CURP:</b> {{client.crup}}</p>
             <p><b>ENTIDAD:</b> Distrito Federal</p>
-            <p><b>ESTADO:</b> Normal / Lenguaje de señas / Dialecto</p>
+            <p><b>ESTADO:</b> {{client.type}}</p>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-xl-4 col-sm-6 mb-3">
               <div class="card text-white bg-success bottons o-hidden h-100">
-                <div class="card-body">
+                <div class="card-body" (click)="empezar()">
                   <div class="card-body-icon">
                     <i class="fas fa-play"></i>
                   </div>
@@ -61,6 +61,9 @@
                         </div>
                       </div>
                     </div>
+        </div>
+        <div>
+          <button (click)="agentLogOut()">Desconectar</button>
         </div>
       </div>
     </div>

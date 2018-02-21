@@ -12,10 +12,11 @@ export class TotemSocketService {
   io = this.sailsIOClient(this.socketIOClient);
   
   constructor() {
-    this.io.sails.url = 'http://localhost:1337';
-    this.io.socket.get('/user/subscribeToRoom', function(response) {
+    //this.io.sails.url = 'http://localhost:1337';
+    this.io.sails.url = 'https://still-mountain-91576.herokuapp.com'
+    /*this.io.socket.get('/user/subscribeToTotemsConect', function(response) {
       //observer.next(response);
-    })
+    })*/
     
   }
   public conectToTotem(): Observable<any> {    
@@ -23,14 +24,46 @@ export class TotemSocketService {
       this.io.socket.on('totem', function(response){
         observer.next(response);
       })  
-      this.io.socket.get('/user/subscribeToRoom', function(response) {
+      this.io.socket.get('/user/subscribeToTotemsConect', function(response) {
         observer.next(response);
       })
       
     })
     
   } 
-  public sendMsg(){
+  public conectToAgent(): Observable<any> {    
+    return Observable.create((observer)=>{   
+      this.io.socket.on('totem', function(response){
+        observer.next(response);
+      })  
+      this.io.socket.get('/user/subscribeToAgentsConect', function(response) {
+        observer.next(response);
+      })
+      
+    })
+    
+  }
+  public userOnline(data){
+    this.io.socket.put('/user/agentLogIn',data, function(response) {
+      console.log(response);
+    })
+  }
+  public agentLogOut(email){
+    this.io.socket.put('/user/agentLogOut',{email:email}, function(response) {
+      console.log(response);
+    })
+  }
+  public updatesocket(data){
+    this.io.socket.put('/user/updateAgent',data, function(response) {
+      console.log(response);
+    })
+  }
+  public totemTake(socketId){
+    this.io.socket.put('/user/totemTake',{socketId:socketId}, function(response) {
+      console.log(response);
+    })
+  }
+  /*public sendMsg(){
     this.io.socket.get('/user/emitToRoom', function(data, response) {
       console.log(data);
       console.log(response);
@@ -41,6 +74,6 @@ export class TotemSocketService {
       console.log(data);
       console.log(response);
     });
-  }
+  }*/
 
 }

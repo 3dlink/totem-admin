@@ -1,0 +1,81 @@
+{
+  "project": {
+    "version": "1.0.0-beta.28.3",
+    "name": "prueba"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css",
+        "assets/vendor/bootstrap/css/bootstrap.min.css",
+        "assets/vendor/font-awesome/css/font-awesome.min.css",
+        "assets/vendor/datatables/dataTables.bootstrap4.css",
+        "assets/css/sb-admin.css"
+      ],
+      "scripts": [
+        "assets/vendor/jquery/jquery.min.js",
+        "assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+        "assets/vendor/jquery-easing/jquery.easing.min.js",
+        "assets/vendor/chart.js/Chart.min.js",
+        "assets/vendor/datatables/jquery.dataTables.js",
+        "assets/vendor/datatables/dataTables.bootstrap4.js",
+        "assets/js/sb-admin.min.js",
+        "assets/js/sb-admin-datatables.min.js",
+        "assets/js/sb-admin-charts.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "files": "src/**/*.ts",
+      "project": "src/tsconfig.json"
+    },
+    {
+      "files": "e2e/**/*.ts",
+      "project": "e2e/tsconfig.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "prefixInterfaces": false,
+    "inline": {
+      "style": false,
+      "template": false
+    },
+    "spec": {
+      "class": false,
+      "component": true,
+      "directive": true,
+      "module": false,
+      "pipe": true,
+      "service": true
+    }
+  }
+}

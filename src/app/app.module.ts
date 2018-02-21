@@ -20,6 +20,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 import { EditAdminComponent } from './edit-admin/edit-admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TotemSocketService } from './totem-socket.service';
+import {FormsModule} from '@angular/forms'
 
 const appRoutes:Routes = [
   {
@@ -62,6 +63,7 @@ const appRoutes:Routes = [
     EditAdminComponent
   ],
   imports: [
+    FormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserModule
   ],
