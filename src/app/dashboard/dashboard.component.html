@@ -64,6 +64,11 @@
         </div>
         <div>
           <button (click)="agentLogOut()">Desconectar</button>
+          <select [(ngModel)]="typoUser">
+            <option value="1">Normal</option>
+            <option value="2">Lenguaje de señas</option>
+            <option value="3">Dialecto</option>
+          </select>    
         </div>
       </div>
     </div>

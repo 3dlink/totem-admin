@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
     crup:'No informado',
     type:'Normal / Lenguaje de señas / Dialecto'
   };
+  typoUser:number;
   socketID:string;
   msg:string;
   alerta=true;
@@ -53,20 +54,40 @@ export class DashboardComponent implements OnInit {
     this.sails.agentLogOut(localStorage.getItem('email'));
   }
   empezar(){
-    let client= this.clients[0];
-    this.clients.splice(0,1);
-    if(client.curp.length>0){
-      this.client.crup=client.curp
+    let client; 
+    let registros=true;
+    /*if(this.typoUser==1){
+      client= this.clients[0];
+      this.clients.splice(0,1);
+      registros=false;
+    }else{   */  
+    for(let x in this.clients){
+        if(this.clients[x].type==this.typoUser){
+          client= this.clients[x];
+          this.clients.splice(x,1);
+          registros=false;
+        }
+    }      
+    //}
+    if(registros){
+      alert('no hay usuarios de ese tipo');
     }
-    if(client.type==1){
-      this.client.type='Normal'
-    }else if((client.type==2)){
-      this.client.type='Lenguaje de señas'
-    }else if(client.type==3){
-      this.client.type='Dialecto'
+    else{
+      if(client.curp.length>0){
+        this.client.crup=client.curp
+      }
+      if(client.type==1){
+        this.client.type='Normal'
+      }else if((client.type==2)){
+        this.client.type='Lenguaje de señas'
+      }else if(client.type==3){
+        this.client.type='Dialecto'
+      }
+      //socketID
+      this.sails.totemTake(client.socketID);
     }
-    //socketID
-    this.sails.totemTake(client.socketID);
+    
+    
   }
  
 
